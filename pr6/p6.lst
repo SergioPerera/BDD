@@ -1,0 +1,286 @@
+SQL> select * from dual;
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> select current_date from dual;
+
+CURRENT_D                                                                       
+---------                                                                       
+22-NOV-24                                                                       
+
+SQL> select year(ff) from plan_docente;
+select year(ff) from plan_docente
+       *
+ERROR at line 1:
+ORA-00904: "YEAR": invalid identifier 
+
+
+SQL> REM 2
+SQL> SELECT CURRENT_TIME
+  2  FROM DUAL;
+SELECT CURRENT_TIME
+       *
+ERROR at line 1:
+ORA-00904: "CURRENT_TIME": invalid identifier 
+
+
+SQL> select to_char(ff, 'HH:MI') from plan_docente;
+
+TO_CH                                                                           
+-----                                                                           
+                                                                                
+12:00                                                                           
+                                                                                
+12:00                                                                           
+                                                                                
+                                                                                
+                                                                                
+12:00                                                                           
+12:00                                                                           
+                                                                                
+12:00                                                                           
+
+TO_CH                                                                           
+-----                                                                           
+                                                                                
+                                                                                
+                                                                                
+12:00                                                                           
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+
+19 rows selected.
+
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 200;
+SQL> select to_char(ff, 'HH24:MI') from plan_docente;
+
+TO_CH                                                                                                                                                                                                   
+-----                                                                                                                                                                                                   
+                                                                                                                                                                                                        
+00:00                                                                                                                                                                                                   
+                                                                                                                                                                                                        
+00:00                                                                                                                                                                                                   
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+00:00                                                                                                                                                                                                   
+00:00                                                                                                                                                                                                   
+                                                                                                                                                                                                        
+00:00                                                                                                                                                                                                   
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+00:00                                                                                                                                                                                                   
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+
+19 rows selected.
+
+SQL> exit
+SQL> REM #
+SQL> REM 3
+SQL> SELECT TO_CHAR(CURRENT_DATE, 'DAY DD MONTH YYYY')
+  2  FROM DUAL;
+
+TO_CHAR(CURRENT_DATE,'DAYDDMONTHYYYY')                                          
+--------------------------------------------------------------------------------
+FRIDAY    29 NOVEMBER  2024                                                     
+
+SQL> REM 4
+SQL> SELECT TO_CHAR(CURRENT_TIMESTAMP, 'HH24:MI:SS')
+  2  FROM DUAL;
+
+TO_CHAR(                                                                        
+--------                                                                        
+13:28:16                                                                        
+
+SQL> REM 5
+SQL> SELECT SYSDATE - PLAN_DOCENTE.FI
+  2  FROM ASIGNATURA
+  3    JOIN PLAN_DOCENTE ON ASIGNATURA.CAS = PLAN_DOCENTE.CAS
+  4    JOIN PROFESOR ON PLAN_DOCENTE.DNI = PROFESOR.DNI
+  5  WHERE PROFESOR.DNI = 8888
+  6    AND FF IS NULL
+  7    AND PLAN_DOCENTE.CAS = 11;
+
+SYSDATE-PLAN_DOCENTE.FI                                                         
+-----------------------                                                         
+             5568.56142                                                         
+
+SQL> REM 6
+SQL> SELECT DISTINCT P
+  2  FROM PLAN_DOCENTE
+  3  JOIN PROFESOR ON PROFESOR.DNI= PLAN_DOCENTE.DNI
+  4  WHERE FF - FI > 365
+  5    OR SYSDATE - FF IS NULL;
+
+P                                                                               
+------------------------------------------------------------                    
+MARIO                                                                           
+JUAN                                                                            
+PEDRO                                                                           
+FRANCISCO                                                                       
+SOLEDAD                                                                         
+DAVID                                                                           
+CARLOS                                                                          
+IVAN                                                                            
+CARMEN                                                                          
+MARIA                                                                           
+JOSE MANUEL                                                                     
+
+P                                                                               
+------------------------------------------------------------                    
+ANGELA                                                                          
+
+12 rows selected.
+
+SQL> REM 7
+SQL> SELECT COUNT(DISTINCT DNI)
+  2  FROM PROFESOR
+  3  JOIN AREA ON PROFESOR.CAR = AREA.CAR
+  4  JOIN DEPARTAMENTO ON AREA.CD = DEPARTAMENTO.CD
+  5  WHERE D = 'ASTROFISICA';
+
+COUNT(DISTINCTDNI)                                                              
+------------------                                                              
+                 1                                                              
+
+SQL> REM 8
+SQL> SELECT DEPARTAMENTO.D, COUNT(DISTINCT PROFESOR.DNI)
+  2  FROM PROFESOR
+  3  JOIN AREA ON PROFESOR.CAR = AREA.CAR
+  4  JOIN DEPARTAMENTO ON AREA.CD = DEPARTAMENTO.CD
+  5  GROUP BY DEPARTAMENTO.D
+  6  ORDER BY DEPARTAMENTO.D;
+
+D                                                                               
+------------------------------------------------------------                    
+COUNT(DISTINCTPROFESOR.DNI)                                                     
+---------------------------                                                     
+ANALISIS MATEMATICO                                                             
+                          3                                                     
+                                                                                
+ASTROFISICA                                                                     
+                          1                                                     
+                                                                                
+ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                              
+                          7                                                     
+                                                                                
+
+D                                                                               
+------------------------------------------------------------                    
+COUNT(DISTINCTPROFESOR.DNI)                                                     
+---------------------------                                                     
+MATEMATICA FUNDAMENTAL                                                          
+                          1                                                     
+                                                                                
+
+SQL> REM 9
+SQL> SELECT COUNT(DISTINCT TITULACION)
+  2  FROM ASIGNATURA
+  3  JOIN AREA ON ASIGNATURA.CAR = AREA.CAR
+  4  JOIN DEPARTAMENTO ON AREA.CD = DEPARTAMENTO.CD
+  5  WHERE DEPARTAMENTO.D = 'ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION';
+SELECT COUNT(DISTINCT TITULACION)
+                      *
+ERROR at line 1:
+ORA-00904: "TITULACION": invalid identifier 
+
+
+SQL> SELECT COUNT(DISTINCT T)
+  2  FROM ASIGNATURA
+  3  JOIN AREA ON ASIGNATURA.CAR = AREA.CAR
+  4  JOIN DEPARTAMENTO ON AREA.CD = DEPARTAMENTO.CD
+  5  WHERE DEPARTAMENTO.D = 'ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION';
+
+COUNT(DISTINCTT)                                                                
+----------------                                                                
+               2                                                                
+
+SQL> REM 10
+SQL> SELECT COUNT(DISTINCT DNI)
+  2  FROM PROFESOR
+  3  JOIN AREA ON PROFESOR.CAR = AREA.CAR
+  4  WHERE AR LIKE 'A%';
+
+COUNT(DISTINCTDNI)                                                              
+------------------                                                              
+                 3                                                              
+
+SQL> REM 11
+SQL> SELECT TITULACION, COUNT(*)
+  2  FROM ASIGNATURA
+  3  GROUP BY TITULACION
+  4  ORDER BY TITULACION;
+GROUP BY TITULACION
+         *
+ERROR at line 3:
+ORA-00904: "TITULACION": invalid identifier 
+
+
+SQL> SELECT TITULACION, COUNT(*)
+  2  FROM ASIGNATURA
+  3  GROUP BY T
+  4  ORDER BY T;
+SELECT TITULACION, COUNT(*)
+       *
+ERROR at line 1:
+ORA-00904: "TITULACION": invalid identifier 
+
+
+SQL> SELECT T, COUNT(*)
+  2  FROM ASIGNATURA
+  3  GROUP BY T
+  4  ORDER BY T;
+
+T      COUNT(*)                                                                 
+---- ----------                                                                 
+GF            1                                                                 
+GII           7                                                                 
+GM            2                                                                 
+MII           2                                                                 
+
+SQL> REM 12
+SQL> SELECT N
+  2  FROM ASIGNATURA
+  3  WHERE CT = (
+  4      SELECT MAX(CT)
+  5      FROM ASIGNATURA
+  6    );
+SELECT N
+       *
+ERROR at line 1:
+ORA-00904: "N": invalid identifier 
+
+
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CT = (
+  4      SELECT MAX(CT)
+  5      FROM ASIGNATURA
+  6    );
+
+A                                                                               
+--------------------------------------------------                              
+DIDACTICA DE LA MATEMATICA                                                      
+
+SQL> REM 13
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CT = (
+  4      SELECT MIN(CT)
+  5      FROM ASIGNATURA
+  6    );
+
+A                                                                               
+--------------------------------------------------                              
+INTELIGENCIA ARTIFICIAL                                                         
+ALMACENES DE DATOS                                                              
+MINERIA DE DATOS                         

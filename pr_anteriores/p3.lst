@@ -1,0 +1,706 @@
+SQL> exit
+SQL> CREATE TABLE DEPARTAMENTO
+  2  (CD NUMBER (3) PRIMARY KEY,
+  3  D VARCHAR2 (60));
+
+Table created.
+
+SQL> CREATE TABLE AREA
+  2  (CAR NUMBER (3) PRIMARY KEY,
+  3  AR VARCHAR2(60),
+  4  CD NUMBER (2) REFERENCES DEPARTAMENTO ON DELETE CASCADE);
+
+Table created.
+
+SQL> SELECT * FROM DEPARTAMENTO
+  2  ;
+
+no rows selected
+
+SQL> LL
+SP2-0042: unknown command "LL" - rest of line ignored.
+SQL> SELECT * FROM DEPARTAMENTO
+  2  ;
+
+no rows selected
+
+SQL> SELECT * FROM AREA
+  2  ;
+
+no rows selected
+
+SQL> SELECT * FROM PROFESOR;
+SELECT * FROM PROFESOR
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE AREA
+  2  ;
+
+Table dropped.
+
+SQL> DROP TABLE DEPARTAMENTO;
+
+Table dropped.
+
+SQL> ./p3_script.sql
+SP2-0734: unknown command beginning "./p3_scrip..." - rest of line ignored.
+SQL> p3_script.sql
+SP2-0734: unknown command beginning "p3_script...." - rest of line ignored.
+SQL> /p3_script.sql
+SP2-0734: unknown command beginning "/p3_script..." - rest of line ignored.
+SQL> ./p3_script.sql
+SP2-0734: unknown command beginning "./p3_scrip..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> @./p3_script.sql
+SP2-0734: unknown command beginning "REATE TABL..." - rest of line ignored.
+(CD NUMBER(2) PRIMARY KEY,
+ *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+	CD NUMBER(2) REFERENCES DEPARTAMENTO ON DELETE CASCADE)
+	                        *
+ERROR at line 4:
+ORA-00942: table or view does not exist 
+
+
+	FOREIGN KEY (CAR) REFERENCES AREA ON DELETE SET NULL)
+	                             *
+ERROR at line 6:
+ORA-00942: table or view does not exist 
+
+
+	CAR NUMBER(3) REFERENCES AREA ON DELETE SET NULL,
+	                         *
+ERROR at line 6:
+ORA-00942: table or view does not exist 
+
+
+	FOREIGN KEY (CAS) REFERENCES ASIGNATURA ON DELETE CASCADE,
+	                             *
+ERROR at line 10:
+ORA-00942: table or view does not exist 
+
+
+SQL> SELECT * FROM AREA
+  2  ;
+SELECT * FROM AREA
+              *
+ERROR at line 1:
+ORA-04044: procedure, function, package, or type is not allowed here 
+
+
+SQL> SELECT * FROM AREA;
+SELECT * FROM AREA
+              *
+ERROR at line 1:
+ORA-04044: procedure, function, package, or type is not allowed here 
+
+
+SQL> 
+SQL> DROP TABLE AREA
+  2  ;
+DROP TABLE AREA
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE DEPARTAMENTO;
+DROP TABLE DEPARTAMENTO
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> @./p3_script.sql
+SP2-0734: unknown command beginning "REATE TABL..." - rest of line ignored.
+(CD NUMBER(2) PRIMARY KEY,
+ *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+CD NUMBER(2) REFERENCES DEPARTAMENTO ON DELETE CASCADE)
+                        *
+ERROR at line 4:
+ORA-00942: table or view does not exist 
+
+
+FOREIGN KEY (CAR) REFERENCES AREA ON DELETE SET NULL)
+                             *
+ERROR at line 6:
+ORA-00942: table or view does not exist 
+
+
+CAR NUMBER(3) REFERENCES AREA ON DELETE SET NULL,
+                         *
+ERROR at line 6:
+ORA-00942: table or view does not exist 
+
+
+FOREIGN KEY (CAS) REFERENCES ASIGNATURA ON DELETE CASCADE,
+                             *
+ERROR at line 10:
+ORA-00942: table or view does not exist 
+
+
+SQL> @./p3_script.sql
+SP2-0734: unknown command beginning "REATE TABL..." - rest of line ignored.
+(CD NUMBER(2) PRIMARY KEY,
+ *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+CD NUMBER(2) REFERENCES DEPARTAMENTO ON DELETE CASCADE)
+                        *
+ERROR at line 4:
+ORA-00942: table or view does not exist 
+
+
+FOREIGN KEY (CAR) REFERENCES AREA ON DELETE SET NULL)
+                             *
+ERROR at line 6:
+ORA-00942: table or view does not exist 
+
+
+CAR NUMBER(3) REFERENCES AREA ON DELETE SET NULL,
+                         *
+ERROR at line 6:
+ORA-00942: table or view does not exist 
+
+
+FOREIGN KEY (CAS) REFERENCES ASIGNATURA ON DELETE CASCADE,
+                             *
+ERROR at line 10:
+ORA-00942: table or view does not exist 
+
+
+SQL> @./p3_script.sql
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> @./insertar_dep.sql
+SP2-0734: unknown command beginning "NSERT INTO..." - rest of line ignored.
+SP2-0734: unknown command beginning "VALUES(1,'..." - rest of line ignored.
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> SELECT * FROM DEPARTAMENTO
+  2  ;
+
+        CD D                                                                    
+---------- ------------------------------------------------------------         
+         2 ASTROFISICA                                                          
+         3 ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                   
+         4 MATEMATICA FUNDAMENTAL                                               
+
+SQL> DELETRE FROM DEPARTAMENTO
+SP2-0734: unknown command beginning "DELETRE FR..." - rest of line ignored.
+SQL> DELETE FROM DEPARTAMENTO
+  2  ;
+
+3 rows deleted.
+
+SQL> SELECT * FROM DEPARTAMENTO
+  2  
+SQL> ;
+  1* SELECT * FROM DEPARTAMENTO
+SQL> 
+SQL> @./insertar_dep.sql
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> SELECT * FROM DEPARTAMENTO
+  2  ;
+
+        CD D                                                                    
+---------- ------------------------------------------------------------         
+         1 ANALISIS MATEMATICO                                                  
+         2 ASTROFISICA                                                          
+         3 ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                   
+         4 MATEMATICA FUNDAMENTAL                                               
+
+SQL> commit
+  2  ;
+
+Commit complete.
+
+SQL> spool p3.lst append
+SQL> spool p3.lst append
+SQL> @./insertar_area.sql
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+INSERT INTO AREA
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> DELETE FROM AREA
+  2  ;
+
+6 rows deleted.
+
+SQL> @./insertar_area.sql
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+INSERT INTO AREA
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> DELETE FROM AREA
+  2  ;
+
+6 rows deleted.
+
+SQL> @./insertar_area.sql
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> SELECT * FROM AREA
+  2  ;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                 
+         3                                                                      
+                                                                                
+         5 DIDACTICA DE LA MATEMATICA                                           
+         1                                                                      
+                                                                                
+         6 ESTADISTICA E INVESTIGACION OPERATIVA                                
+         3                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         7 LENGUAJES Y SISTEMAS INFORMATICOS                                    
+         3                                                                      
+                                                                                
+         8 MATEMATICA APLICADA                                                  
+         1                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> SELECT * FROM AREA
+  2  ;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                 
+         3                                                                      
+                                                                                
+         5 DIDACTICA DE LA MATEMATICA                                           
+         1                                                                      
+                                                                                
+         6 ESTADISTICA E INVESTIGACION OPERATIVA                                
+         3                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         7 LENGUAJES Y SISTEMAS INFORMATICOS                                    
+         3                                                                      
+                                                                                
+         8 MATEMATICA APLICADA                                                  
+         1                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> SELECT * FROM AREA;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                 
+         3                                                                      
+                                                                                
+         5 DIDACTICA DE LA MATEMATICA                                           
+         1                                                                      
+                                                                                
+         6 ESTADISTICA E INVESTIGACION OPERATIVA                                
+         3                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         7 LENGUAJES Y SISTEMAS INFORMATICOS                                    
+         3                                                                      
+                                                                                
+         8 MATEMATICA APLICADA                                                  
+         1                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> EXIT
+SQL> select * from departamento;
+
+        CD D                                                                    
+---------- ------------------------------------------------------------         
+         1 ANALISIS MATEMATICO                                                  
+         2 ASTROFISICA                                                          
+         3 ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                   
+         4 MATEMATICA FUNDAMENTAL                                               
+
+SQL> select * from area;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                 
+         3                                                                      
+                                                                                
+         5 DIDACTICA DE LA MATEMATICA                                           
+         1                                                                      
+                                                                                
+         6 ESTADISTICA E INVESTIGACION OPERATIVA                                
+         3                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         7 LENGUAJES Y SISTEMAS INFORMATICOS                                    
+         3                                                                      
+                                                                                
+         8 MATEMATICA APLICADA                                                  
+         1                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> SET PAGESIZE 100;
+SQL> SET LINESIZE 300"
+SP2-0268: linesize option not a valid number
+SQL> SET LINESIZE 300;
+SQL> select * from profesor;
+
+       DNI P                                                                   CAR CAT                                                                                                                                                                                                                      
+---------- ------------------------------------------------------------ ---------- -----                                                                                                                                                                                                                    
+      1111 JUAN                                                                  6 CU                                                                                                                                                                                                                       
+      2222 CARLOS                                                                7 TU                                                                                                                                                                                                                       
+      3333 PEDRO                                                                 4 TEU                                                                                                                                                                                                                      
+      4444 MARIA                                                                 7 TU                                                                                                                                                                                                                       
+      5555 IVAN                                                                  1 CEU                                                                                                                                                                                                                      
+      6666 CARMEN                                                                3 CD                                                                                                                                                                                                                       
+      7777 MARIO                                                                 2 TU                                                                                                                                                                                                                       
+      8888 FRANCISCO                                                             5 TU                                                                                                                                                                                                                       
+      9999 ANGELA                                                                8 TEU                                                                                                                                                                                                                      
+      1010 DAVID                                                                 4 TU                                                                                                                                                                                                                       
+      2020 SOLEDAD                                                               7 CU                                                                                                                                                                                                                       
+      3030 JOSE MANUEL                                                           6 TEU                                                                                                                                                                                                                      
+
+12 rows selected.
+
+SQL> select * from asignatura;
+
+no rows selected
+
+SQL> @./insertar_asignaturas.sql
+SP2-0310: unable to open file "./insertar_asignaturas.sql"
+SQL> @insertar_asignaturas.sql
+SP2-0310: unable to open file "insertar_asignaturas.sql"
+SQL> @./insertar_asignatura.sql
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> select * from asignatura;
+
+       CAS A                                                  T           CUR        CAR         CT         CP         CL                                                                                                                                                                                   
+---------- -------------------------------------------------- ---- ---------- ---------- ---------- ---------- ----------                                                                                                                                                                                   
+         1 BASES DE DATOS                                     GII           3          7          3        1.5        1.5                                                                                                                                                                                   
+         2 INTELIGENCIA ARTIFICIAL                            GII           3          4        1.5        1.5          3                                                                                                                                                                                   
+         3 ALMACENES DE DATOS                                 MII           1          7        1.5          0        1.5                                                                                                                                                                                   
+         4 MINERIA DE DATOS                                   MII           1          7        1.5          0        1.5                                                                                                                                                                                   
+         5 INFORMATICA BASICA                                 GII           1          7          3        1.5        1.5                                                                                                                                                                                   
+         6 ALGEBRA                                            GII           1          1          3          3          0                                                                                                                                                                                   
+         7 CALCULO                                            GII           1          8          3          3          0                                                                                                                                                                                   
+         8 OPTIMIZACION                                       GII           1          6          3        1.5        1.5                                                                                                                                                                                   
+         9 GESTION DE RIESGOS                                 GII           3          4          3          0          3                                                                                                                                                                                   
+        10 ASTRONOMIA                                         GF            2          3          3        1.5        1.5                                                                                                                                                                                   
+        11 DIDACTICA DE LA MATEMATICA                         GM            2          5          6          0          0                                                                                                                                                                                   
+        12 ANALISIS COMPLEJO                                  GM            4          2        4.5          3          0                                                                                                                                                                                   
+
+12 rows selected.
+
+SQL> @./in_pldct.sql
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+SQL> select * from plan_docente"
+  2  
+SQL> select * from plan_docente;
+
+       DNI        CAS        CTA        CPA        CLA FI        FF                                                                                                                                                                                                                                         
+---------- ---------- ---------- ---------- ---------- --------- ---------                                                                                                                                                                                                                                  
+      4444          1          3        1.5        1.5 01-SEP-11                                                                                                                                                                                                                                            
+      4444          4        1.5          0        1.5 01-SEP-08 31-AUG-10                                                                                                                                                                                                                                  
+      4444          5          3          0          0 01-SEP-10                                                                                                                                                                                                                                            
+      1111          8          3        1.5        1.5 01-SEP-07 31-AUG-09                                                                                                                                                                                                                                  
+      1111          8          3          0          0 01-SEP-09                                                                                                                                                                                                                                            
+      3030          8          0        1.5        1.5 01-SEP-09                                                                                                                                                                                                                                            
+      2222          4        1.5          0        1.5 01-SEP-09                                                                                                                                                                                                                                            
+      2222          3        1.5          0        1.5 01-SEP-06 31-AUG-07                                                                                                                                                                                                                                  
+      1010          2        1.5        1.5          3 01-SEP-05 31-AUG-08                                                                                                                                                                                                                                  
+      3333          2        1.5        1.5          3 01-SEP-08                                                                                                                                                                                                                                            
+      1010          9          3          0          3 01-SEP-08 31-AUG-09                                                                                                                                                                                                                                  
+      1010          9        1.5          0        1.5 01-SEP-09                                                                                                                                                                                                                                            
+      9999          7          3          3          0 01-SEP-10                                                                                                                                                                                                                                            
+      5555          6          3          3          0 31-MAR-10                                                                                                                                                                                                                                            
+      6666         10          3        1.5        1.5 01-SEP-08 31-AUG-11                                                                                                                                                                                                                                  
+      8888         11          6          0          0 01-SEP-09                                                                                                                                                                                                                                            
+      2020          3        1.5          0        1.5 01-SEP-08                                                                                                                                                                                                                                            
+      7777         12        4.5          3          0 01-SEP-10                                                                                                                                                                                                                                            
+      3333          9        1.5          0        1.5 01-SEP-09                                                                                                                                                                                                                                            
+
+19 rows selected.
+
+SQL> exit

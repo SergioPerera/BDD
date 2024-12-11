@@ -1,0 +1,460 @@
+SQL> spool
+currently spooling to p1.lst
+SQL> connect
+Enter user-name: administrador
+Connected.
+SQL> SHOW USER
+USER is "ADMINISTRADOR"
+SQL> CONNECT ALU0101394503
+Connected.
+SQL> SPOOL
+currently spooling to p1.lst
+SQL> SPOOL OFF
+SQL> spool
+currently spooling to p1.lst
+SQL> SPOOL OFF
+SQL> spool
+currently spooling to p1.lst
+SQL> help spool
+
+ SPOOL
+ -----
+
+ Stores query results in a file, or optionally sends the file to a printer.
+
+ SPO[OL] [file_name[.ext] [CRE[ATE] | REP[LACE] | APP[END]] | OFF | OUT]
+
+
+SQL> SELECT *
+  2  FROM DUAL;
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> 
+SQL> 
+SQL> L
+  1  SELECT *
+  2* FROM DUAL
+SQL> L RUN
+SP2-0224: invalid starting line number
+SQL> RUN
+  1  SELECT *
+  2* FROM DUAL
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> /
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> save
+SP2-0105: Illegal, or missing, entity name
+SQL> save i1
+Created file i1.sql
+SQL> 
+SQL> l2
+  2* FROM DUAL
+SQL> del
+SQL> l
+  1* SELECT *
+SQL> run
+  1* SELECT *
+SELECT *
+       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> run
+  1* SELECT *
+SELECT *
+       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> 
+SQL> get i1.sql
+  1  SELECT *
+  2* FROM DUAL
+SQL> run
+  1  SELECT *
+  2* FROM DUAL
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> rem esto es un comentario
+SQL> l
+  1  SELECT *
+  2* FROM DUAL
+SQL> -- esto es un comentario
+SQL> 
+SQL> /* esto es un comentario
+SQL> show user
+SQL> */
+SQL> show user
+USER is "ALU0101394503"
+SQL> !ls
+
+SQL> host ls
+
+SQL> host
+
+SQL> host
+
+SQL> l
+  1  SELECT *
+  2* FROM DUAL
+SQL> get i1.sql
+  1  SELECT * -- esto es un comentario
+  2* FROM DUAL
+SQL> l
+  1  SELECT * -- esto es un comentario
+  2* FROM DUAL
+SQL> run
+  1  SELECT * -- esto es un comentario
+  2* FROM DUAL
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> @i1
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> @@i1
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> start i1
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> @i1
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> @@i1
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> start i1
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> describe dual
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DUMMY                                              VARCHAR2(1)
+
+SQL> describe DUAL
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DUMMY                                              VARCHAR2(1)
+
+SQL> def n
+SP2-0135: symbol n is UNDEFINED
+SQL> def n=132
+SQL> l
+  1  SELECT * -- esto es un comentario
+  2* FROM DUAL
+SQL> def n
+DEFINE N               = "132" (CHAR)
+SQL> undef n
+SQL> def n
+SP2-0135: symbol n is UNDEFINED
+SQL> select *
+  2  from &tabla
+  3  dual
+  4  
+SQL> select *
+  2  from &tabla;
+Enter value for tabla: DUAL
+old   2: from &tabla
+new   2: from DUAL
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> l
+  1  select *
+  2* from &tabla
+SQL> run
+  1  select *
+  2* from &tabla
+Enter value for tabla: dual
+old   2: from &tabla
+new   2: from dual
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> l
+  1  select *
+  2* from &tabla
+SQL> select *
+  2  from &&tabla;
+Enter value for tabla: dual
+old   2: from &&tabla
+new   2: from dual
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> run
+  1  select *
+  2* from &&tabla
+old   2: from &&tabla
+new   2: from dual
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> run
+  1  select *
+  2* from &&tabla
+old   2: from &&tabla
+new   2: from dual
+
+D                                                                               
+-                                                                               
+X                                                                               
+
+SQL> show user
+USER is "ALU0101394503"
+SQL> show all
+appinfo is OFF and set to "SQL*Plus"
+arraysize 15
+autocommit OFF
+autoprint OFF
+autorecovery OFF
+autotrace OFF
+blockterminator "." (hex 2e)
+btitle OFF and is the first few characters of the next SELECT statement
+cmdsep OFF
+colinvisible OFF
+colsep " "
+compatibility version NATIVE
+concat "." (hex 2e)
+copycommit 0
+COPYTYPECHECK is ON
+define "&" (hex 26)
+describe DEPTH 1 LINENUM OFF INDENT ON
+echo OFF
+editfile "afiedt.buf"
+embedded OFF
+errorlogging is OFF
+escape OFF
+escchar OFF
+exitcommit ON
+FEEDBACK ON for 6 or more rows
+flagger OFF
+flush ON
+fullcolname OFF
+heading ON
+headsep "|" (hex 7c)
+history is OFF
+instance "local"
+linesize 80
+lno 5
+loboffset 1
+lobprefetch 0
+logsource ""
+long 80
+longchunksize 80
+markup HTML OFF HEAD "<style type='text/css'> body {font:10pt Arial,Helvetica,sans-serif; color:black; background:White;} p {font:10pt Arial,Helvetica,sans-serif; color:black; background:White;} table,tr,td {font:10pt Arial,Helvetica,sans-serif; color:Black; background:#f7f7e7; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;} th {font:bold 10pt Arial,Helvetica,sans-serif; color:#336699; background:#cccc99; padding:0px 0px 0px 0px;} h1 {font:16pt Arial,Helvetica,Geneva,sans-serif; color:#336699; background-color:White; border-bottom:1px solid #cccc99; margin-top:0pt; margin-bottom:0pt; padding:0px 0px 0px 0px;-
+} h2 {font:bold 10pt Arial,Helvetica,Geneva,sans-serif; color:#336699; background-color:White; margin-top:4pt; margin-bottom:0pt;} a {font:9pt Arial,Helvetica,sans-serif; color:#663300; background:#ffffff; margin-top:0pt; margin-bottom:0pt; vertical-align:top;}</style><title>SQL*Plus Report</title>" BODY "" TABLE "border='1' width='90%' align='center' summary='Script output'" SPOOL OFF ENTMAP ON PREFORMAT OFF
+markup CSV OFF DELIMITER , QUOTE ON
+newpage 1
+null ""
+numformat ""
+numwidth 10
+pagesize 14
+PAUSE is OFF
+pno 1
+recsep WRAP
+recsepchar " " (hex 20)
+release 1202000100
+repfooter OFF and is NULL
+repheader OFF and is NULL
+rowprefetch 1
+securedcol is OFF
+serveroutput OFF
+shiftinout INVISIBLE
+showmode OFF
+spool ON
+sqlblanklines OFF
+sqlcase MIXED
+sqlcode 0
+sqlcontinue "> "
+sqlnumber ON
+sqlpluscompatibility 12.2.0
+sqlprefix "#" (hex 23)
+sqlprompt "SQL> "
+sqlterminator ";" (hex 3b)
+statementcache is 0
+suffix "sql"
+tab ON
+termout ON
+timing OFF
+trimout ON
+trimspool OFF
+ttitle OFF and is the first few characters of the next SELECT statement
+underline "-" (hex 2d)
+USER is "ALU0101394503"
+verify ON
+wrap : lines will be wrapped
+xmloptimizationcheck OFF
+SQL> show linesize
+linesize 80
+SQL> show linesize
+linesize 80
+SQL> show pagesize
+pagesize 14
+SQL> set linesize 200
+SQL> show linesize
+linesize 200
+SQL> spool
+currently spooling to p1.lst
+SQL> show all
+appinfo is OFF and set to "SQL*Plus"
+arraysize 15
+autocommit OFF
+autoprint OFF
+autorecovery OFF
+autotrace OFF
+blockterminator "." (hex 2e)
+btitle OFF and is the first few characters of the next SELECT statement
+cmdsep OFF
+colinvisible OFF
+colsep " "
+compatibility version NATIVE
+concat "." (hex 2e)
+copycommit 0
+COPYTYPECHECK is ON
+define "&" (hex 26)
+describe DEPTH 1 LINENUM OFF INDENT ON
+echo OFF
+editfile "afiedt.buf"
+embedded OFF
+errorlogging is OFF
+escape OFF
+escchar OFF
+exitcommit ON
+FEEDBACK ON for 6 or more rows
+flagger OFF
+flush ON
+fullcolname OFF
+heading ON
+headsep "|" (hex 7c)
+history is OFF
+instance "local"
+linesize 200
+lno 5
+loboffset 1
+lobprefetch 0
+logsource ""
+long 80
+longchunksize 80
+markup HTML OFF HEAD "<style type='text/css'> body {font:10pt Arial,Helvetica,sans-serif; color:black; background:White;} p {font:10pt Arial,Helvetica,sans-serif; color:black; background:White;} table,tr,td {font:10pt Arial,Helvetica,sans-serif; color:Black; background:#f7f7e7; padding:0px 0px 0px 0px; margin:0px 0px 0px 0px;} th {font:bold 10pt Arial,Helvetica,sans-serif; color:#336699; background:#cccc99; padding:0px 0px 0px 0px;} h1 {font:16pt Arial,Helvetica,Geneva,sans-serif; color:#336699; background-color:White; border-bottom:1px solid #cccc99; margin-top:0pt; margin-bottom:0pt; padding:0px 0px 0px 0px;-
+} h2 {font:bold 10pt Arial,Helvetica,Geneva,sans-serif; color:#336699; background-color:White; margin-top:4pt; margin-bottom:0pt;} a {font:9pt Arial,Helvetica,sans-serif; color:#663300; background:#ffffff; margin-top:0pt; margin-bottom:0pt; vertical-align:top;}</style><title>SQL*Plus Report</title>" BODY "" TABLE "border='1' width='90%' align='center' summary='Script output'" SPOOL OFF ENTMAP ON PREFORMAT OFF
+markup CSV OFF DELIMITER , QUOTE ON
+newpage 1
+null ""
+numformat ""
+numwidth 10
+pagesize 14
+PAUSE is OFF
+pno 1
+recsep WRAP
+recsepchar " " (hex 20)
+release 1202000100
+repfooter OFF and is NULL
+repheader OFF and is NULL
+rowprefetch 1
+securedcol is OFF
+serveroutput OFF
+shiftinout INVISIBLE
+showmode OFF
+spool ON
+sqlblanklines OFF
+sqlcase MIXED
+sqlcode 0
+sqlcontinue "> "
+sqlnumber ON
+sqlpluscompatibility 12.2.0
+sqlprefix "#" (hex 23)
+sqlprompt "SQL> "
+sqlterminator ";" (hex 3b)
+statementcache is 0
+suffix "sql"
+tab ON
+termout ON
+timing OFF
+trimout ON
+trimspool OFF
+ttitle OFF and is the first few characters of the next SELECT statement
+underline "-" (hex 2d)
+USER is "ALU0101394503"
+verify ON
+wrap : lines will be wrapped
+xmloptimizationcheck OFF
+SQL> print linesize
+SP2-0552: Bind variable "LINESIZE" not declared.
+SQL> pause
+
+SQL> prompt hola
+hola
+SQL> prompt introduzca su nombre
+introduzca su nombre
+SQL> prompt introduzca su nombre; pause;
+introduzca su nombre; pause
+SQL> def password
+SP2-0135: symbol password is UNDEFINED
+SQL> asset password
+SP2-0734: unknown command beginning "asset pass..." - rest of line ignored.
+SQL> accept password prompt introduzca su password
+SP2-0003: Ill-formed ACCEPT command starting as su password
+SQL> accept paswd_ promt introduzca su password
+SP2-0003: Ill-formed ACCEPT command starting as promt introduzca su password
+SQL> accept password_ promt introduzca su password
+SP2-0003: Ill-formed ACCEPT command starting as promt introduzca su password
+SQL> accept password_ prompt introduzca su password
+SP2-0003: Ill-formed ACCEPT command starting as su password
+SQL> accept password_ prompt 'introduzca su password' hide
+introduzca su password
+SQL> accept password_ prompt 'introduzca su password: ' hide
+introduzca su password: 
+SQL> accept password_ prompt 'introduzca su password: '
+introduzca su password: asdfasd
+SQL> accept password_ prompt 'introduzca su password: ' hide
+introduzca su password: 
+SQL> def password_
+DEFINE PASSWORD_       = "wa'na" (CHAR)
+SQL> spool off
+SQL> exit

@@ -1,0 +1,458 @@
+SQL> @p4.sql
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 200;
+SQL> 
+SQL> -- 1. Listar todos los registros de la tabla DEPARTAMENTO. Nombra explícitamente todos los
+SQL> -- campos detrás del SELECT.
+SQL> REM 1;
+SQL> SELECT CD, D
+  2  FROM DEPARTAMENTO;
+
+        CD D                                                                                                                                                                                            
+---------- ------------------------------------------------------------                                                                                                                                 
+         1 ANALISIS MATEMATICO                                                                                                                                                                          
+         2 ASTROFISICA                                                                                                                                                                                  
+         3 ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                                                                                                                                           
+         4 MATEMATICA FUNDAMENTAL                                                                                                                                                                       
+
+SQL> -- 2. Listar todos los registros de la tabla AREA. Utiliza * detrás del SELECT.
+SQL> REM 2;
+SQL> SELECT *
+  2  FROM AREA;
+
+       CAR AR                                                                   CD                                                                                                                      
+---------- ------------------------------------------------------------ ----------                                                                                                                      
+         1 ALGEBRA                                                               4                                                                                                                      
+         2 ANALISIS MATEMATICO                                                   1                                                                                                                      
+         3 ASTRONOMIA Y ASTROFISICA                                              2                                                                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                  3                                                                                                                      
+         5 DIDACTICA DE LA MATEMATICA                                            1                                                                                                                      
+         6 ESTADISTICA E INVESTIGACION OPERATIVA                                 3                                                                                                                      
+         7 LENGUAJES Y SISTEMAS INFORMATICOS                                     3                                                                                                                      
+         8 MATEMATICA APLICADA                                                   1                                                                                                                      
+
+8 rows selected.
+
+SQL> -- 3. Listar todos los DNI de los profesores.
+SQL> REM 3;
+SQL> SELECT  DNI
+  2  FROM PROFESOR;
+
+       DNI                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      1010                                                                                                                                                                                              
+      1111                                                                                                                                                                                              
+      2020                                                                                                                                                                                              
+      2222                                                                                                                                                                                              
+      3030                                                                                                                                                                                              
+      3333                                                                                                                                                                                              
+      4040                                                                                                                                                                                              
+      4444                                                                                                                                                                                              
+      5555                                                                                                                                                                                              
+      6666                                                                                                                                                                                              
+      7777                                                                                                                                                                                              
+      8888                                                                                                                                                                                              
+      9999                                                                                                                                                                                              
+
+13 rows selected.
+
+SQL> -- 4. Listar todas las t-uplas de la tabla PROFESOR.
+SQL> REM 4;
+SQL> SELECT *
+  2  FROM PROFESOR;
+
+       DNI P                                                                   CAR CAT                                                                                                                  
+---------- ------------------------------------------------------------ ---------- -----                                                                                                                
+      4040 CARMELO                                                               7 TU                                                                                                                   
+      1111 JUAN                                                                  6 CU                                                                                                                   
+      2222 CARLOS                                                                7 TU                                                                                                                   
+      3333 PEDRO                                                                 4 TEU                                                                                                                  
+      4444 MARIA                                                                 7 TU                                                                                                                   
+      5555 IVAN                                                                  1 CEU                                                                                                                  
+      6666 CARMEN                                                                3 CD                                                                                                                   
+      7777 MARIO                                                                 2 TU                                                                                                                   
+      8888 FRANCISCO                                                             5 TU                                                                                                                   
+      9999 ANGELA                                                                8 TEU                                                                                                                  
+      1010 DAVID                                                                 4 TU                                                                                                                   
+      2020 SOLEDAD                                                               7 CU                                                                                                                   
+      3030 JOSE MANUEL                                                           6 TEU                                                                                                                  
+
+13 rows selected.
+
+SQL> -- 5. Listar todas las t-uplas de la tabla PROFESOR proyectando los atributos en el siguiente
+SQL> -- orden: P, DNI, CAT, CAR.
+SQL> REM 5;
+SQL> SELECT P, DNI, CAT, CAR
+  2  FROM PROFESOR;
+
+P                                                                   DNI CAT          CAR                                                                                                                
+------------------------------------------------------------ ---------- ----- ----------                                                                                                                
+CARMELO                                                            4040 TU             7                                                                                                                
+JUAN                                                               1111 CU             6                                                                                                                
+CARLOS                                                             2222 TU             7                                                                                                                
+PEDRO                                                              3333 TEU            4                                                                                                                
+MARIA                                                              4444 TU             7                                                                                                                
+IVAN                                                               5555 CEU            1                                                                                                                
+CARMEN                                                             6666 CD             3                                                                                                                
+MARIO                                                              7777 TU             2                                                                                                                
+FRANCISCO                                                          8888 TU             5                                                                                                                
+ANGELA                                                             9999 TEU            8                                                                                                                
+DAVID                                                              1010 TU             4                                                                                                                
+SOLEDAD                                                            2020 CU             7                                                                                                                
+JOSE MANUEL                                                        3030 TEU            6                                                                                                                
+
+13 rows selected.
+
+SQL> -- 6. Idem que la anterior pero ahora pon un alias explicativo para cada uno de los atributos.
+SQL> REM 6;
+SQL> SELECT P AS PROFESOR, DNI AS DNI, CAT AS CATEGORIA, CAR AS CODIGO_AREA
+  2  FROM PROFESOR;
+
+PROFESOR                                                            DNI CATEG CODIGO_AREA                                                                                                               
+------------------------------------------------------------ ---------- ----- -----------                                                                                                               
+CARMELO                                                            4040 TU              7                                                                                                               
+JUAN                                                               1111 CU              6                                                                                                               
+CARLOS                                                             2222 TU              7                                                                                                               
+PEDRO                                                              3333 TEU             4                                                                                                               
+MARIA                                                              4444 TU              7                                                                                                               
+IVAN                                                               5555 CEU             1                                                                                                               
+CARMEN                                                             6666 CD              3                                                                                                               
+MARIO                                                              7777 TU              2                                                                                                               
+FRANCISCO                                                          8888 TU              5                                                                                                               
+ANGELA                                                             9999 TEU             8                                                                                                               
+DAVID                                                              1010 TU              4                                                                                                               
+SOLEDAD                                                            2020 CU              7                                                                                                               
+JOSE MANUEL                                                        3030 TEU             6                                                                                                               
+
+13 rows selected.
+
+SQL> -- 7. Listar todas las t-uplas de la tabla ASIGNATURA.
+SQL> REM 7;
+SQL> SELECT *
+  2  FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR        CAR         CT         CP         CL                                                                               
+---------- -------------------------------------------------- ---- ---------- ---------- ---------- ---------- ----------                                                                               
+         1 BASES DE DATOS                                     GII           3          7          3        1.5        1.5                                                                               
+         2 INTELIGENCIA ARTIFICIAL                            GII           3          4        1.5        1.5          3                                                                               
+         3 ALMACENES DE DATOS                                 MII           1          7        1.5          0        1.5                                                                               
+         4 MINERIA DE DATOS                                   MII           1          7        1.5          0        1.5                                                                               
+         5 INFORMATICA BASICA                                 GII           1          7          3        1.5        1.5                                                                               
+         6 ALGEBRA                                            GII           1          1          3          3          0                                                                               
+         7 CALCULO                                            GII           1          8          3          3          0                                                                               
+         8 OPTIMIZACION                                       GII           1          6          3        1.5        1.5                                                                               
+         9 GESTION DE RIESGOS                                 GII           3          4          3          0          3                                                                               
+        10 ASTRONOMIA                                         GF            2          3          3        1.5        1.5                                                                               
+        11 DIDACTICA DE LA MATEMATICA                         GM            2          5          6          0          0                                                                               
+        12 ANALISIS COMPLEJO                                  GM            4          2        4.5          3          0                                                                               
+
+12 rows selected.
+
+SQL> -- 8. Listar todas las t-uplas de la tabla ASIGNATURA asociadas a la titulación GII.
+SQL> REM 8;
+SQL> SELECT * FROM ASIGNATURA
+  2  WHERE T = 'GII';
+
+       CAS A                                                  T           CUR        CAR         CT         CP         CL                                                                               
+---------- -------------------------------------------------- ---- ---------- ---------- ---------- ---------- ----------                                                                               
+         1 BASES DE DATOS                                     GII           3          7          3        1.5        1.5                                                                               
+         2 INTELIGENCIA ARTIFICIAL                            GII           3          4        1.5        1.5          3                                                                               
+         5 INFORMATICA BASICA                                 GII           1          7          3        1.5        1.5                                                                               
+         6 ALGEBRA                                            GII           1          1          3          3          0                                                                               
+         7 CALCULO                                            GII           1          8          3          3          0                                                                               
+         8 OPTIMIZACION                                       GII           1          6          3        1.5        1.5                                                                               
+         9 GESTION DE RIESGOS                                 GII           3          4          3          0          3                                                                               
+
+7 rows selected.
+
+SQL> -- 9. Listar los DNI de los profesores del área con código 7.
+SQL> REM 9;
+SQL> SELECT DNI
+  2  FROM PROFESOR
+  3  WHERE CAR = 7;
+
+       DNI                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      4040                                                                                                                                                                                              
+      2222                                                                                                                                                                                              
+      4444                                                                                                                                                                                              
+      2020                                                                                                                                                                                              
+
+SQL> -- 10. Listar, eliminando duplicados, los nombres de los profesores del área con código 7.
+SQL> REM 10;
+SQL> SELECT DISTINCT P
+  2  FROM PROFESOR
+  3  WHERE CAR = 7;
+
+P                                                                                                                                                                                                       
+------------------------------------------------------------                                                                                                                                            
+CARMELO                                                                                                                                                                                                 
+SOLEDAD                                                                                                                                                                                                 
+CARLOS                                                                                                                                                                                                  
+MARIA                                                                                                                                                                                                   
+
+SQL> -- 11. Listar los nombres de las asignaturas que tengan un código mayor o igual que 7.
+SQL> REM 11;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CAS >= 7;
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+CALCULO                                                                                                                                                                                                 
+OPTIMIZACION                                                                                                                                                                                            
+GESTION DE RIESGOS                                                                                                                                                                                      
+ASTRONOMIA                                                                                                                                                                                              
+DIDACTICA DE LA MATEMATICA                                                                                                                                                                              
+ANALISIS COMPLEJO                                                                                                                                                                                       
+
+6 rows selected.
+
+SQL> -- 12. Listar los nombres de las asignaturas que tengan un código mayor que 7.
+SQL> REM 12;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CAS > 7;
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+OPTIMIZACION                                                                                                                                                                                            
+GESTION DE RIESGOS                                                                                                                                                                                      
+ASTRONOMIA                                                                                                                                                                                              
+DIDACTICA DE LA MATEMATICA                                                                                                                                                                              
+ANALISIS COMPLEJO                                                                                                                                                                                       
+
+SQL> -- 13. Listar el código de la asignatura con nombre ‘ALMACENES DE DATOS’.
+SQL> REM 13;
+SQL> SELECT CAS
+  2  FROM ASIGNATURA
+  3  WHERE A = 'ALMACENES DE DATOS';
+
+       CAS                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         3                                                                                                                                                                                              
+
+SQL> -- 14. Listar los nombres de las asignaturas que tengan un código distinto de 8.
+SQL> REM 14;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CAS <> 8;
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+BASES DE DATOS                                                                                                                                                                                          
+INTELIGENCIA ARTIFICIAL                                                                                                                                                                                 
+ALMACENES DE DATOS                                                                                                                                                                                      
+MINERIA DE DATOS                                                                                                                                                                                        
+INFORMATICA BASICA                                                                                                                                                                                      
+ALGEBRA                                                                                                                                                                                                 
+CALCULO                                                                                                                                                                                                 
+GESTION DE RIESGOS                                                                                                                                                                                      
+ASTRONOMIA                                                                                                                                                                                              
+DIDACTICA DE LA MATEMATICA                                                                                                                                                                              
+ANALISIS COMPLEJO                                                                                                                                                                                       
+
+11 rows selected.
+
+SQL> -- 15. Listar los nombres de las asignaturas que tengan un código distinto de 8 y 11.
+SQL> REM 15;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CAS NOT IN (8, 11);
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+BASES DE DATOS                                                                                                                                                                                          
+INTELIGENCIA ARTIFICIAL                                                                                                                                                                                 
+ALMACENES DE DATOS                                                                                                                                                                                      
+MINERIA DE DATOS                                                                                                                                                                                        
+INFORMATICA BASICA                                                                                                                                                                                      
+ALGEBRA                                                                                                                                                                                                 
+CALCULO                                                                                                                                                                                                 
+GESTION DE RIESGOS                                                                                                                                                                                      
+ASTRONOMIA                                                                                                                                                                                              
+ANALISIS COMPLEJO                                                                                                                                                                                       
+
+10 rows selected.
+
+SQL> -- O
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CAS <> 8 AND CAS <> 11;
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+BASES DE DATOS                                                                                                                                                                                          
+INTELIGENCIA ARTIFICIAL                                                                                                                                                                                 
+ALMACENES DE DATOS                                                                                                                                                                                      
+MINERIA DE DATOS                                                                                                                                                                                        
+INFORMATICA BASICA                                                                                                                                                                                      
+ALGEBRA                                                                                                                                                                                                 
+CALCULO                                                                                                                                                                                                 
+GESTION DE RIESGOS                                                                                                                                                                                      
+ASTRONOMIA                                                                                                                                                                                              
+ANALISIS COMPLEJO                                                                                                                                                                                       
+
+10 rows selected.
+
+SQL> -- 16. Listar los códigos de las asignaturas impartidas por el profesor con DNI 3333.
+SQL> REM 16;
+SQL> SELECT CAS
+  2  FROM ASIGNATURA NATURAL JOIN PROFESOR
+  3  WHERE DNI = 3333;
+
+       CAS                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         2                                                                                                                                                                                              
+         9                                                                                                                                                                                              
+
+SQL> -- 17. Listar el código del departamento de ‘ASTROFÍSICA’.
+SQL> REM 17;
+SQL> SELECT CD
+  2  FROM DEPARTAMENTO
+  3  WHERE D = 'ASTROFISICA'
+  4  -- 18. Listar los DNI de los profesores que han sido asignados a asignaturas el día ‘01-09-09’.
+  5  REM 18;
+REM 18
+     *
+ERROR at line 5:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT DNI
+  2  FROM PLAN_DOCENTE
+  3  WHERE FI = '01-SEP-09';
+
+       DNI                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      1010                                                                                                                                                                                              
+      1111                                                                                                                                                                                              
+      2222                                                                                                                                                                                              
+      3030                                                                                                                                                                                              
+      3333                                                                                                                                                                                              
+      8888                                                                                                                                                                                              
+
+6 rows selected.
+
+SQL> -- 19. Listar los DNI de los profesores que han sido asignados a asignaturas con anterioridad al
+SQL> -- ’01-01-09’.
+SQL> REM 19;
+SQL> SELECT DNI
+  2  FROM PLAN_DOCENTE
+  3  WHERE FI < '01-JAN-09';
+
+       DNI                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      1010                                                                                                                                                                                              
+      1010                                                                                                                                                                                              
+      1111                                                                                                                                                                                              
+      2020                                                                                                                                                                                              
+      2222                                                                                                                                                                                              
+      3333                                                                                                                                                                                              
+      4444                                                                                                                                                                                              
+      6666                                                                                                                                                                                              
+
+8 rows selected.
+
+SQL> -- 20. Listar los nombres de las asignaturas adscritas a las áreas 3, 5 y 8.
+SQL> REM 20;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CAR IN (3, 5, 8);
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+CALCULO                                                                                                                                                                                                 
+ASTRONOMIA                                                                                                                                                                                              
+DIDACTICA DE LA MATEMATICA                                                                                                                                                                              
+
+SQL> -- 21. Listar los nombres de las asignaturas que no están adscritas a las áreas 3, 5 y 8.
+SQL> REM 21;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CAR NOT IN (3, 5, 8);
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+BASES DE DATOS                                                                                                                                                                                          
+INTELIGENCIA ARTIFICIAL                                                                                                                                                                                 
+ALMACENES DE DATOS                                                                                                                                                                                      
+MINERIA DE DATOS                                                                                                                                                                                        
+INFORMATICA BASICA                                                                                                                                                                                      
+ALGEBRA                                                                                                                                                                                                 
+OPTIMIZACION                                                                                                                                                                                            
+GESTION DE RIESGOS                                                                                                                                                                                      
+ANALISIS COMPLEJO                                                                                                                                                                                       
+
+9 rows selected.
+
+SQL> -- 22. Listar los nombres de los profesores cuyo DNI está comprendido entre 3000 y 7000
+SQL> REM 22;
+SQL> SELECT P
+  2  FROM PROFESOR
+  3  WHERE DNI BETWEEN 3000 AND 7000;
+
+P                                                                                                                                                                                                       
+------------------------------------------------------------                                                                                                                                            
+JOSE MANUEL                                                                                                                                                                                             
+PEDRO                                                                                                                                                                                                   
+CARMELO                                                                                                                                                                                                 
+MARIA                                                                                                                                                                                                   
+IVAN                                                                                                                                                                                                    
+CARMEN                                                                                                                                                                                                  
+
+6 rows selected.
+
+SQL> -- 23. Listar los nombres de los profesores cuyo DNI no está comprendido entre 3000 y 7000.
+SQL> REM 23;
+SQL> SELECT P
+  2  FROM PROFESOR
+  3  WHERE DNI NOT BETWEEN 3000 AND 7000;
+
+P                                                                                                                                                                                                       
+------------------------------------------------------------                                                                                                                                            
+JUAN                                                                                                                                                                                                    
+CARLOS                                                                                                                                                                                                  
+MARIO                                                                                                                                                                                                   
+FRANCISCO                                                                                                                                                                                               
+ANGELA                                                                                                                                                                                                  
+DAVID                                                                                                                                                                                                   
+SOLEDAD                                                                                                                                                                                                 
+
+7 rows selected.
+
+SQL> -- 24. Listar los códigos de las asignaturas asignadas actualmente al profesor con DNI 1111.
+SQL> REM 24;
+SQL> SELECT CAS
+  2  FROM PLAN_DOCENTE
+  3  WHERE DNI = 1111 AND FF IS NULL;
+
+       CAS                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         8                                                                                                                                                                                              
+
+SQL> -- 25. Obtener para cada asignatura el número total de créditos que tiene.
+SQL> REM 25;
+SQL> SELECT CAS, CT + CP + CL AS TOTAL_CREDITOS
+  2  FROM ASIGNATURA;
+
+       CAS TOTAL_CREDITOS                                                                                                                                                                               
+---------- --------------                                                                                                                                                                               
+         1              6                                                                                                                                                                               
+         2              6                                                                                                                                                                               
+         3              3                                                                                                                                                                               
+         4              3                                                                                                                                                                               
+         5              6                                                                                                                                                                               
+         6              6                                                                                                                                                                               
+         7              6                                                                                                                                                                               
+         8              6                                                                                                                                                                               
+         9              6                                                                                                                                                                               
+        10              6                                                                                                                                                                               
+        11              6                                                                                                                                                                               
+        12            7.5                                                                                                                                                                               
+
+12 rows selected.
+
+SQL> 
+SQL> 
+SQL> spool off
