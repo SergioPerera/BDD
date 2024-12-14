@@ -1,0 +1,356 @@
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 200;
+SQL> -- 1. Obtener la fecha del sistema.
+SQL> REM 1;
+SQL> SELECT CURRENT_DATE
+  2  FROM DUAL;
+
+CURRENT_D                                                                                                                                                                                               
+---------                                                                                                                                                                                               
+12-DEC-24                                                                                                                                                                                               
+
+SQL> -- 2. Obtener la hora del sistema.
+SQL> REM 2;
+SQL> SELECT TO_CHAR(CURRENT_TIMESTAMP, 'HH24:MI:SS')
+  2  FROM DUAL;
+
+TO_CHAR(                                                                                                                                                                                                
+--------                                                                                                                                                                                                
+18:45:32                                                                                                                                                                                                
+
+SQL> -- 3. Dar la fecha del sistema con el formato día de la semana, día del mes, mes y año.
+SQL> REM 3;
+SQL> SELECT TO_CHAR(CURRENT_DATE, 'DAY DD MONTH YYYY')
+  2  FROM DUAL;
+
+TO_CHAR(CURRENT_DATE,'DAYDDMONTHYYYY')                                                                                                                                                                  
+---------------------------------------------------------------------------------                                                                                                                       
+THURSDAY  12 DECEMBER  2024                                                                                                                                                                             
+
+SQL> -- 4. Dar la hora del sistema en formato de reloj de 24 horas.
+SQL> REM 4;
+SQL> SELECT TO_CHAR(CURRENT_TIMESTAMP, 'HH24:MI:SS')
+  2  FROM DUAL;
+
+TO_CHAR(                                                                                                                                                                                                
+--------                                                                                                                                                                                                
+18:45:32                                                                                                                                                                                                
+
+SQL> -- 5. Obtener el número de días que lleva impartiendo la asignatura con código 11 el profesor con
+SQL> -- DNI 8888.
+SQL> REM 5;
+SQL> SELECT SYSDATE - FI
+  2  FROM PLAN_DOCENTE
+  3  WHERE DNI = 8888
+  4    AND FF IS NULL
+  5    AND PLAN_DOCENTE.CAS = 11;
+
+SYSDATE-FI                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+5581.78162                                                                                                                                                                                              
+
+SQL> -- 6. Listar los nombres de profesores que han impartido una asignatura más de 365 días.
+SQL> -- Coge los que est'an impartiando ahora y los que han impartido
+SQL> REM 6;
+SQL> SELECT DISTINCT P
+  2  FROM PLAN_DOCENTE
+  3    JOIN PROFESOR ON PROFESOR.DNI = PLAN_DOCENTE.DNI
+  4  WHERE FF - FI > 365
+  5    OR SYSDATE - FF IS NULL;
+
+P                                                                                                                                                                                                       
+------------------------------------------------------------                                                                                                                                            
+MARIO                                                                                                                                                                                                   
+JUAN                                                                                                                                                                                                    
+PEDRO                                                                                                                                                                                                   
+FRANCISCO                                                                                                                                                                                               
+SOLEDAD                                                                                                                                                                                                 
+CARLOS                                                                                                                                                                                                  
+DAVID                                                                                                                                                                                                   
+IVAN                                                                                                                                                                                                    
+CARMEN                                                                                                                                                                                                  
+MARIA                                                                                                                                                                                                   
+JOSE MANUEL                                                                                                                                                                                             
+ANGELA                                                                                                                                                                                                  
+
+12 rows selected.
+
+SQL> -- 7. Hallar el número de profesores del departamento ‘ASTROFÍSICA’.
+SQL> REM 7;
+SQL> SELECT COUNT(DISTINCT DNI)
+  2  FROM PROFESOR
+  3    JOIN AREA ON PROFESOR.CAR = AREA.CAR
+  4    JOIN DEPARTAMENTO ON AREA.CD = DEPARTAMENTO.CD
+  5  WHERE D = 'ASTROFISICA';
+
+COUNT(DISTINCTDNI)                                                                                                                                                                                      
+------------------                                                                                                                                                                                      
+                 1                                                                                                                                                                                      
+
+SQL> -- 8. Hallar para cada departamento el número de profesores que tiene. Ordena la salida
+SQL> -- alfabéticamente.
+SQL> REM 8;
+SQL> SELECT DEPARTAMENTO.D,
+  2    COUNT(DISTINCT PROFESOR.DNI)
+  3  FROM PROFESOR
+  4    JOIN AREA ON PROFESOR.CAR = AREA.CAR
+  5    JOIN DEPARTAMENTO ON AREA.CD = DEPARTAMENTO.CD
+  6  GROUP BY DEPARTAMENTO.D
+  7  ORDER BY DEPARTAMENTO.D;
+
+D                                                            COUNT(DISTINCTPROFESOR.DNI)                                                                                                                
+------------------------------------------------------------ ---------------------------                                                                                                                
+ANALISIS MATEMATICO                                                                    3                                                                                                                
+ASTROFISICA                                                                            1                                                                                                                
+ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                                     8                                                                                                                
+MATEMATICA FUNDAMENTAL                                                                 1                                                                                                                
+
+SQL> -- 9. Hallar en cuantas titulaciones imparte el departamento de ‘ESTADÍSTICA,
+SQL> -- INVESTIGACIÓN OPERATIVA Y COMPUTACIÓN’.
+SQL> REM 9;
+SQL> SELECT COUNT(DISTINCT T)
+  2  FROM ASIGNATURA
+  3    JOIN AREA ON ASIGNATURA.CAR = AREA.CAR
+  4    JOIN DEPARTAMENTO ON AREA.CD = DEPARTAMENTO.CD
+  5  WHERE DEPARTAMENTO.D = 'ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION';
+
+COUNT(DISTINCTT)                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+               2                                                                                                                                                                                        
+
+SQL> -- 10. Hallar el número de profesores adscritos a áreas cuyo nombre (el de las áreas) empiece por
+SQL> -- ‘A’.
+SQL> REM 10;
+SQL> SELECT COUNT(DISTINCT DNI)
+  2  FROM PROFESOR
+  3    JOIN AREA ON PROFESOR.CAR = AREA.CAR
+  4  WHERE AR LIKE 'A%';
+
+COUNT(DISTINCTDNI)                                                                                                                                                                                      
+------------------                                                                                                                                                                                      
+                 3                                                                                                                                                                                      
+
+SQL> -- 11. Hallar para cada titulación el número de asignaturas que tiene. Ordena la salida
+SQL> -- alfabéticamente.
+SQL> REM 11;
+SQL> SELECT T,
+  2    COUNT(*)
+  3  FROM ASIGNATURA
+  4  GROUP BY T
+  5  ORDER BY T;
+
+T      COUNT(*)                                                                                                                                                                                         
+---- ----------                                                                                                                                                                                         
+GF            1                                                                                                                                                                                         
+GII           7                                                                                                                                                                                         
+GM            2                                                                                                                                                                                         
+MII           2                                                                                                                                                                                         
+
+SQL> -- 12. Listar el nombre de la asignatura con más créditos teóricos.
+SQL> REM 12;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CT = (
+  4  		 SELECT MAX(CT)
+  5  		 FROM ASIGNATURA
+  6  	       );
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+DIDACTICA DE LA MATEMATICA                                                                                                                                                                              
+
+SQL> 	     -- 13. Listar el nombre de la asignatura con menos créditos teóricos
+SQL> REM 13;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CT = (
+  4  		 SELECT MIN(CT)
+  5  		 FROM ASIGNATURA
+  6  	       );
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+INTELIGENCIA ARTIFICIAL                                                                                                                                                                                 
+ALMACENES DE DATOS                                                                                                                                                                                      
+MINERIA DE DATOS                                                                                                                                                                                        
+
+SQL> 	     -- 14. Listar para cada asignatura el número total de créditos que tiene.
+SQL> REM 14;
+SQL> SELECT A,
+  2    CT + CP + CL
+  3  FROM ASIGNATURA;
+
+A                                                    CT+CP+CL                                                                                                                                           
+-------------------------------------------------- ----------                                                                                                                                           
+BASES DE DATOS                                              6                                                                                                                                           
+INTELIGENCIA ARTIFICIAL                                     6                                                                                                                                           
+ALMACENES DE DATOS                                          3                                                                                                                                           
+MINERIA DE DATOS                                            3                                                                                                                                           
+INFORMATICA BASICA                                          6                                                                                                                                           
+ALGEBRA                                                     6                                                                                                                                           
+CALCULO                                                     6                                                                                                                                           
+OPTIMIZACION                                                6                                                                                                                                           
+GESTION DE RIESGOS                                          6                                                                                                                                           
+ASTRONOMIA                                                  6                                                                                                                                           
+DIDACTICA DE LA MATEMATICA                                  6                                                                                                                                           
+ANALISIS COMPLEJO                                         7.5                                                                                                                                           
+
+12 rows selected.
+
+SQL> -- 15. Listar el nombre de la asignatura con más créditos.
+SQL> REM 15;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CT + CP + CL = (
+  4  		 SELECT MAX(CT + CP + CL)
+  5  		 FROM ASIGNATURA
+  6  	       );
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+ANALISIS COMPLEJO                                                                                                                                                                                       
+
+SQL> 	     -- 16. Listar el nombre de la asignatura con menos créditos.
+SQL> REM 16;
+SQL> SELECT A
+  2  FROM ASIGNATURA
+  3  WHERE CT + CP + CL = (
+  4  		 SELECT MIN(CT + CP + CL)
+  5  		 FROM ASIGNATURA
+  6  	       );
+
+A                                                                                                                                                                                                       
+--------------------------------------------------                                                                                                                                                      
+ALMACENES DE DATOS                                                                                                                                                                                      
+MINERIA DE DATOS                                                                                                                                                                                        
+
+SQL> 	     -- 17. Listar el nombre del área a la que está adscrita la asignatura con más créditos.
+SQL> REM 17;
+SQL> SELECT AR
+  2  FROM ASIGNATURA
+  3    JOIN AREA ON ASIGNATURA.CAR = AREA.CAR
+  4  WHERE CT + CP + CL = (
+  5  		 SELECT MAX(CT + CP + CL)
+  6  		 FROM ASIGNATURA
+  7  	       );
+
+AR                                                                                                                                                                                                      
+------------------------------------------------------------                                                                                                                                            
+ANALISIS MATEMATICO                                                                                                                                                                                     
+
+SQL> 	     -- 18. Hallar el número de asignaturas impartidas por el profesor con DNI 1111.
+SQL> REM 18;
+SQL> SELECT COUNT(*)
+  2  FROM PLAN_DOCENTE
+  3  WHERE DNI = 1111;
+
+  COUNT(*)                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         2                                                                                                                                                                                              
+
+SQL> -- 19. Hallar el número de créditos impartidos por el profesor con DNI 1111.
+SQL> REM 19;
+SQL> SELECT SUM(CTA + CPA + CLA)
+  2  FROM PLAN_DOCENTE
+  3  WHERE DNI = 1111;
+
+SUM(CTA+CPA+CLA)                                                                                                                                                                                        
+----------------                                                                                                                                                                                        
+               9                                                                                                                                                                                        
+
+SQL> -- 20. Hallar el nombre del profesor que más créditos imparte actualmente.
+SQL> REM 20;
+SQL> SELECT P
+  2  FROM PLAN_DOCENTE
+  3    JOIN ASIGNATURA ON ASIGNATURA.CAS = PLAN_DOCENTE.CAS
+  4    JOIN PROFESOR ON PROFESOR.DNI = PLAN_DOCENTE.DNI
+  5  WHERE FF IS NULL
+  6  GROUP BY P
+  7  HAVING SUM(CT + CP + CL) = (
+  8  		 SELECT MAX(SUM(CT + CP + CL))
+  9  		 FROM PLAN_DOCENTE
+ 10  		   JOIN ASIGNATURA ON ASIGNATURA.CAS = PLAN_DOCENTE.CAS
+ 11  		   JOIN PROFESOR ON PROFESOR.DNI = PLAN_DOCENTE.DNI
+ 12  		   NATURAL JOIN PROFESOR
+ 13  		 WHERE FF IS NULL
+ 14  		 GROUP BY P
+ 15  	       );
+
+P                                                                                                                                                                                                       
+------------------------------------------------------------                                                                                                                                            
+PEDRO                                                                                                                                                                                                   
+MARIA                                                                                                                                                                                                   
+
+SQL> 	     -- 21. Hallar el número medio de asignaturas adscritas a cada área.
+SQL> REM 21;
+SQL> SELECT AVG(COUNT(*))
+  2  FROM AREA
+  3    JOIN ASIGNATURA ON ASIGNATURA.CAR = AREA.CAR
+  4  GROUP BY AR;
+
+AVG(COUNT(*))                                                                                                                                                                                           
+-------------                                                                                                                                                                                           
+          1.5                                                                                                                                                                                           
+
+SQL> -- 22. Hallar el número medio de profesores de cada departamento.
+SQL> REM 22;
+SQL> SELECT AVG(num_profesores)
+  2  FROM (
+  3  		 SELECT D.CD, COUNT(DISTINCT P.DNI) AS num_profesores
+  4  		 FROM DEPARTAMENTO D
+  5  		   JOIN AREA A ON D.CD = A.CD
+  6  		   JOIN PROFESOR P ON A.CAR = P.CAR
+  7  		 GROUP BY D.CD
+  8  );
+
+AVG(NUM_PROFESORES)                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+               3.25                                                                                                                                                                                     
+
+SQL> -- 23. Hallar los nombres de las áreas que tengan más de 3 asignaturas.
+SQL> REM 23;
+SQL> SELECT AR
+  2  FROM AREA
+  3    JOIN ASIGNATURA ON ASIGNATURA.CAR = AREA.CAR
+  4  GROUP BY AR
+  5  HAVING COUNT(*) > 3;
+
+AR                                                                                                                                                                                                      
+------------------------------------------------------------                                                                                                                                            
+LENGUAJES Y SISTEMAS INFORMATICOS                                                                                                                                                                       
+
+SQL> -- 24. Hallar los nombres de las áreas que tengan más de 6 asignaturas.
+SQL> REM 24;
+SQL> SELECT AR
+  2  FROM AREA
+  3    JOIN ASIGNATURA ON ASIGNATURA.CAR = AREA.CAR
+  4  GROUP BY AR
+  5  HAVING COUNT(*) > 6;
+
+no rows selected
+
+SQL> -- 25. Hallar el nombre del departamento con menos profesores.
+SQL> REM 25;
+SQL> SELECT D.D
+  2  FROM DEPARTAMENTO D
+  3    JOIN AREA A ON A.CD = D.CD
+  4    JOIN PROFESOR P ON P.CAR = A.CAR
+  5  GROUP BY D.CD, D.D
+  6  HAVING COUNT(P.DNI) = (
+  7  		 SELECT MIN(CNT)
+  8  		 FROM (
+  9  			     SELECT COUNT(P2.DNI) AS CNT
+ 10  				     FROM DEPARTAMENTO D2
+ 11  					       JOIN AREA A2 ON A2.CD = D2.CD
+ 12  						       JOIN PROFESOR P2 ON P2.CAR = A2.CAR
+ 13  							     GROUP BY D2.D
+ 14  								 )
+ 15  						     );
+
+D                                                                                                                                                                                                       
+------------------------------------------------------------                                                                                                                                            
+MATEMATICA FUNDAMENTAL                                                                                                                                                                                  
+ASTROFISICA                                                                                                                                                                                             
+
+SQL> 
+SQL> 						     spool off

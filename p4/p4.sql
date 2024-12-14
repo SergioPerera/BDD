@@ -84,7 +84,7 @@ WHERE DNI = 3333;
 REM 17;
 SELECT CD
 FROM DEPARTAMENTO
-WHERE D = 'ASTROFISICA'
+WHERE D = 'ASTROFISICA';
 -- 18. Listar los DNI de los profesores que han sido asignados a asignaturas el día ‘01-09-09’.
 REM 18;
 SELECT DNI

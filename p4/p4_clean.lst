@@ -310,15 +310,14 @@ SQL> -- 17. Listar el código del departamento de ‘ASTROFÍSICA’.
 SQL> REM 17;
 SQL> SELECT CD
   2  FROM DEPARTAMENTO
-  3  WHERE D = 'ASTROFISICA'
-  4  -- 18. Listar los DNI de los profesores que han sido asignados a asignaturas el día ‘01-09-09’.
-  5  REM 18;
-REM 18
-     *
-ERROR at line 5:
-ORA-00933: SQL command not properly ended 
+  3  WHERE D = 'ASTROFISICA';
 
+        CD                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         2                                                                                                                                                                                              
 
+SQL> -- 18. Listar los DNI de los profesores que han sido asignados a asignaturas el día ‘01-09-09’.
+SQL> REM 18;
 SQL> SELECT DNI
   2  FROM PLAN_DOCENTE
   3  WHERE FI = '01-SEP-09';
