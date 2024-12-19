@@ -1,0 +1,156 @@
+SQL> -- 3. Abrir una nueva sesión unix (sesión2) ¡sin cerrar la original (sesión1)!. Ejecutar de nuevo el
+SQL> -- SQL*Plus para conectarte a tu base de datos como el usuario alumno con pasword xxxxx.
+SQL> -- (¡No olvides hacer un nuevo spool!)
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 200;
+SQL> -- 4. Listar todas las t-uplas de la tabla DEPARTAMENTO.
+SQL> REM 4;
+SQL> SELECT *
+  2  FROM DEPARTAMENTO;
+
+        CD D                                                                                                                                                                                            
+---------- ------------------------------------------------------------                                                                                                                                 
+         1 ANALISIS MATEMATICO                                                                                                                                                                          
+         2 ASTROFISICA                                                                                                                                                                                  
+         3 ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                                                                                                                                           
+         4 MATEMATICA FUNDAMENTAL                                                                                                                                                                       
+
+SQL> -- 5. Listar todas las t-uplas de la tabla PROFESOR.
+SQL> REM 5;
+SQL> SELECT *
+  2  FROM PROFESOR;
+
+       DNI P                                                                   CAR CAT                                                                                                                  
+---------- ------------------------------------------------------------ ---------- -----                                                                                                                
+      1111 JUAN                                                                  6 CU                                                                                                                   
+      2222 CARLOS                                                                7 TU                                                                                                                   
+      3333 PEDRO                                                                 4 TEU                                                                                                                  
+      4444 MARIA                                                                 7 TU                                                                                                                   
+      5555 IVAN                                                                  1 CEU                                                                                                                  
+      6666 CARMEN                                                                3 CD                                                                                                                   
+      7777 MARIO                                                                 2 TU                                                                                                                   
+      8888 FRANCISCO                                                             5 TU                                                                                                                   
+      9999 ANGELA                                                                8 TEU                                                                                                                  
+      1010 DAVID                                                                 4 TU                                                                                                                   
+      2020 SOLEDAD                                                               7 CU                                                                                                                   
+      3030 JOSE MANUEL                                                           6 TEU                                                                                                                  
+      5050 CARINA                                                                8 CEU                                                                                                                  
+      4040 CARMELO                                                               7 TU                                                                                                                   
+
+14 rows selected.
+
+SQL> -- 6. Insertar la t-upla (5, ‘ECONOMÍA’) en la tabla DEPARTAMENTO.
+SQL> REM 6;
+SQL> INSERT INTO DEPARTAMENTO (CD, D)
+  2  VALUES (5, 'ECONOMÍA');
+
+1 row created.
+
+SQL> -- 7. Modificar el nombre del departamento con código 5 al valor ‘ECONOMÍA APLICADA’.
+SQL> REM 7;
+SQL> UPDATE DEPARTAMENTO
+  2  SET D = 'ECONOMÍA APLICADA'
+  3  WHERE CD = 5;
+
+1 row updated.
+
+SQL> -- 8. Modificar en la tabla TITULACION la t-upla correspondiente a la titulación ‘GII’, poniendo
+SQL> -- como valor de facultad ‘ESIT1’.
+SQL> REM 8;
+SQL> UPDATE TITULACION
+  2  SET FAC = 'ESIT1'
+  3  WHERE T = 'GII';
+
+1 row updated.
+
+SQL> -- 9. Eliminar en la tabla TITULACION la t-upla correspondiente a la titulación ‘GII’.
+SQL> REM 9;
+SQL> DELETE FROM TITULACION
+  2  WHERE T = 'GII';
+
+1 row deleted.
+
+SQL> -- 10. Deshacer los cambios.
+SQL> REM 10;
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> -- 11. Crear una vista, llamada ‘VISTA3’, sobre la tabla ‘ASIGNATURA’, con los atributos A y
+SQL> -- CAR.
+SQL> REM 11;
+SQL> CREATE VIEW VISTA3 AS
+  2  SELECT A, CAR
+  3  FROM ASIGNATURA;
+
+View created.
+
+SQL> -- 12. Eliminar la tabla ASIGNATURA.
+SQL> REM 12;
+SQL> DROP TABLE ASIGNATURA;
+DROP TABLE ASIGNATURA
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> -- 13. Listar las t-uplas de la tabla AREA.
+SQL> REM 13;
+SQL> SELECT *
+  2  FROM AREA;
+
+       CAR AR                                                                   CD                                                                                                                      
+---------- ------------------------------------------------------------ ----------                                                                                                                      
+         1 ALGEBRA                                                               4                                                                                                                      
+         2 ANALISIS MATEMATICO                                                   1                                                                                                                      
+         3 ASTRONOMIA Y ASTROFISICA                                              2                                                                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                  3                                                                                                                      
+         5 DIDACTICA DE LA MATEMATICA                                            1                                                                                                                      
+         6 ESTADISTICA E INVESTIGACION OPERATIVA                                 3                                                                                                                      
+         7 LENGUAJES Y SISTEMAS INFORMATICOS                                     3                                                                                                                      
+         8 MATEMATICA APLICADA                                                   1                                                                                                                      
+
+8 rows selected.
+
+SQL> -- 14. Borrar en la tabla AREA la t-upla asociada al departamento con código 2.
+SQL> REM 14;
+SQL> DELETE FROM AREA
+  2  WHERE CD = 2;
+
+1 row deleted.
+
+SQL> -- 15. Borrar en la tabla AREA la t-upla asociada al departamento con código 3.
+SQL> REM 15;
+SQL> DELETE FROM AREA
+  2  WHERE CD = 3;
+
+3 rows deleted.
+
+SQL> -- 16. Insertar la t-upla (5, ‘ECONOMÍA APLICADA’) en la tabla DEPARTAMENTO.
+SQL> REM  16;
+SQL> INSERT INTO DEPARTAMENTO (CD, D)
+  2  VALUES (5, 'ECONOMÍA APLICADA');
+
+1 row created.
+
+SQL> -- 17. Borrar las asignaturas adscritas al área con código 1.
+SQL> REM 17;
+SQL> DELETE FROM ASIGNATURA
+  2  WHERE CAR = 1;
+
+1 row deleted.
+
+SQL> -- 18. Eliminar en la tabla TITULACION la tupla correspondiente a la titulación ‘MII’.
+SQL> REM 18;
+SQL> DELETE FROM TITULACION
+  2  WHERE T = 'MII';
+
+1 row deleted.
+
+SQL> -- 19. Hacer permanentes los cambios. Cerrar la sesión2.
+SQL> REM 19;
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> spool off;

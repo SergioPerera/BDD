@@ -1,0 +1,323 @@
+SQL> SET ECHO ON;
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 200;
+SQL> -- 1. Crear una tabla llamada TITULACION con los atributos T (nombre de titulación) y FAC
+SQL> -- (nombre de facultad). La clave primaria es T. Especifica los tipos de datos que creas
+SQL> -- convenientes y razona tu elección.
+SQL> REM 1;
+SQL> CREATE TABLE TITULACION (T CHAR(4) PRIMARY KEY, FAC VARCHAR2(60));
+
+Table created.
+
+SQL> -- 2. Insertar, mediante una única instrucción, en la tabla TITULACION, los nombres de las
+SQL> -- TITULACION obtenidos a partir de la tabla ASIGNATURA.
+SQL> REM 2;
+SQL> INSERT INTO TITULACION (T)
+  2  SELECT DISTINCT T
+  3  FROM ASIGNATURA;
+
+4 rows created.
+
+SQL> -- 3. Listar todos los registros de la tabla TITULACION.
+SQL> REM 3;
+SQL> SELECT *
+  2  FROM TITULACION;
+
+T    FAC                                                                                                                                                                                                
+---- ------------------------------------------------------------                                                                                                                                       
+GF                                                                                                                                                                                                      
+GM                                                                                                                                                                                                      
+GII                                                                                                                                                                                                     
+MII                                                                                                                                                                                                     
+
+SQL> -- 4. Rellenar convenientemente el campo FAC de la tabla TITULACION.
+SQL> -- Rellenamos el campo FAC con 'ESIT' para todas las titulaciones
+SQL> REM 4;
+SQL> UPDATE TITULACION
+  2  SET FAC = 'ESIT';
+
+4 rows updated.
+
+SQL> -- 5. Crear un sinónimo denominado TIT para la tabla TITULACION.
+SQL> REM 5;
+SQL> CREATE SYNONYM TIT FOR TITULACION;
+
+Synonym created.
+
+SQL> -- 6. Listar todos los registros de TIT.
+SQL> REM 6;
+SQL> SELECT *
+  2  FROM TIT;
+
+T    FAC                                                                                                                                                                                                
+---- ------------------------------------------------------------                                                                                                                                       
+GF   ESIT                                                                                                                                                                                               
+GM   ESIT                                                                                                                                                                                               
+GII  ESIT                                                                                                                                                                                               
+MII  ESIT                                                                                                                                                                                               
+
+SQL> -- 7. Añadir una condición de integridad referencial entre el atributo T de la tabla
+SQL> -- ASIGNATURA y el atributo T de la tabla TITULACION con borrado en cáscada.
+SQL> REM 7;
+SQL> ALTER TABLE ASIGNATURA
+  2  ADD CONSTRAINT fk_asignatura_titulacion FOREIGN KEY (T) REFERENCES TITULACION (T) ON DELETE CASCADE;
+
+Table altered.
+
+SQL> -- 8. Incrementar en dos caracteres la longitud del campo T en la tabla TITULACION.
+SQL> REM 8;
+SQL> ALTER TABLE TITULACION
+  2  MODIFY T CHAR(6);
+ALTER TABLE TITULACION
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (ALU0101394503.FK_ASIGNATURA_TITULACION) violated - child record found 
+
+
+SQL> -- 9. Crear una vista, llamada ‘VISTA1’, sobre la tabla ASIGNATURA, con los campos (CAS,
+SQL> -- A, T, CUR, CAR).
+SQL> REM 9;
+SQL> CREATE VIEW VISTA1 AS
+  2  SELECT CAS,
+  3    A,
+  4    T,
+  5    CUR,
+  6    CAR
+  7  FROM ASIGNATURA;
+
+View created.
+
+SQL> -- 10. Listar todas las t-uplas de la vista ‘VISTA1’.
+SQL> REM 10;
+SQL> SELECT *
+  2  FROM VISTA1;
+
+       CAS A                                                  T           CUR        CAR                                                                                                                
+---------- -------------------------------------------------- ---- ---------- ----------                                                                                                                
+         1 BASES DE DATOS                                     GII           3          7                                                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3          4                                                                                                                
+         3 ALMACENES DE DATOS                                 MII           1          7                                                                                                                
+         4 MINERIA DE DATOS                                   MII           1          7                                                                                                                
+         5 INFORMATICA BASICA                                 GII           1          7                                                                                                                
+         6 ALGEBRA                                            GII           1          1                                                                                                                
+         7 CALCULO                                            GII           1          8                                                                                                                
+         8 OPTIMIZACION                                       GII           1          6                                                                                                                
+         9 GESTION DE RIESGOS                                 GII           3          4                                                                                                                
+        10 ASTRONOMIA                                         GF            2          3                                                                                                                
+        11 DIDACTICA DE LA MATEMATICA                         GM            2          5                                                                                                                
+        12 ANALISIS COMPLEJO                                  GM            4          2                                                                                                                
+
+12 rows selected.
+
+SQL> -- 11. Insertar la t-upla (13, ‘ESTADISTICA’, GII, 3, 7) en VISTA1.
+SQL> REM 11;
+SQL> INSERT INTO VISTA1 (CAS, A, T, CUR, CAR)
+  2  VALUES (13, 'ESTADISTICA', 'GII', 3, 7);
+
+1 row created.
+
+SQL> -- 12. Listar todas las t-uplas de la vista ‘VISTA1’.
+SQL> REM 12;
+SQL> SELECT *
+  2  FROM VISTA1;
+
+       CAS A                                                  T           CUR        CAR                                                                                                                
+---------- -------------------------------------------------- ---- ---------- ----------                                                                                                                
+         1 BASES DE DATOS                                     GII           3          7                                                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3          4                                                                                                                
+         3 ALMACENES DE DATOS                                 MII           1          7                                                                                                                
+         4 MINERIA DE DATOS                                   MII           1          7                                                                                                                
+         5 INFORMATICA BASICA                                 GII           1          7                                                                                                                
+         6 ALGEBRA                                            GII           1          1                                                                                                                
+         7 CALCULO                                            GII           1          8                                                                                                                
+         8 OPTIMIZACION                                       GII           1          6                                                                                                                
+         9 GESTION DE RIESGOS                                 GII           3          4                                                                                                                
+        10 ASTRONOMIA                                         GF            2          3                                                                                                                
+        11 DIDACTICA DE LA MATEMATICA                         GM            2          5                                                                                                                
+        12 ANALISIS COMPLEJO                                  GM            4          2                                                                                                                
+        13 ESTADISTICA                                        GII           3          7                                                                                                                
+
+13 rows selected.
+
+SQL> -- 13. Listar todas las t-uplas de la tabla ASIGNATURA.
+SQL> REM 13;
+SQL> SELECT *
+  2  FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR        CAR         CT         CP         CL                                                                               
+---------- -------------------------------------------------- ---- ---------- ---------- ---------- ---------- ----------                                                                               
+         1 BASES DE DATOS                                     GII           3          7          3        1.5        1.5                                                                               
+         2 INTELIGENCIA ARTIFICIAL                            GII           3          4        1.5        1.5          3                                                                               
+         3 ALMACENES DE DATOS                                 MII           1          7        1.5          0        1.5                                                                               
+         4 MINERIA DE DATOS                                   MII           1          7        1.5          0        1.5                                                                               
+         5 INFORMATICA BASICA                                 GII           1          7          3        1.5        1.5                                                                               
+         6 ALGEBRA                                            GII           1          1          3          3          0                                                                               
+         7 CALCULO                                            GII           1          8          3          3          0                                                                               
+         8 OPTIMIZACION                                       GII           1          6          3        1.5        1.5                                                                               
+         9 GESTION DE RIESGOS                                 GII           3          4          3          0          3                                                                               
+        10 ASTRONOMIA                                         GF            2          3          3        1.5        1.5                                                                               
+        11 DIDACTICA DE LA MATEMATICA                         GM            2          5          6          0          0                                                                               
+        12 ANALISIS COMPLEJO                                  GM            4          2        4.5          3          0                                                                               
+        13 ESTADISTICA                                        GII           3          7          0          0          0                                                                               
+
+13 rows selected.
+
+SQL> -- 14. Modificar el campo CAR en ‘VISTA1’ de la t-upla con CAS 13. El nuevo valor es 6.
+SQL> REM 14;
+SQL> UPDATE VISTA1
+  2  SET CAR = 6
+  3  WHERE CAS = 13;
+
+1 row updated.
+
+SQL> -- 15. Listar todas las t-uplas de la vista ‘VISTA1’.
+SQL> REM 15;
+SQL> SELECT *
+  2  FROM VISTA1;
+
+       CAS A                                                  T           CUR        CAR                                                                                                                
+---------- -------------------------------------------------- ---- ---------- ----------                                                                                                                
+         1 BASES DE DATOS                                     GII           3          7                                                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3          4                                                                                                                
+         3 ALMACENES DE DATOS                                 MII           1          7                                                                                                                
+         4 MINERIA DE DATOS                                   MII           1          7                                                                                                                
+         5 INFORMATICA BASICA                                 GII           1          7                                                                                                                
+         6 ALGEBRA                                            GII           1          1                                                                                                                
+         7 CALCULO                                            GII           1          8                                                                                                                
+         8 OPTIMIZACION                                       GII           1          6                                                                                                                
+         9 GESTION DE RIESGOS                                 GII           3          4                                                                                                                
+        10 ASTRONOMIA                                         GF            2          3                                                                                                                
+        11 DIDACTICA DE LA MATEMATICA                         GM            2          5                                                                                                                
+        12 ANALISIS COMPLEJO                                  GM            4          2                                                                                                                
+        13 ESTADISTICA                                        GII           3          6                                                                                                                
+
+13 rows selected.
+
+SQL> -- 16. ¿Qué conclusiones sacas sobre las actualizaciones de ‘VISTA1’?
+SQL> -- 17. Crear una vista, llamada ‘VISTA2’, sobre la tabla ’PLAN_DOCENTE’ y la vista
+SQL> -- ‘VISTA1’ que contenga los datos (DNI, A, T, CUR, CAR) relativos a las ASIGNATURA
+SQL> -- impartidas por un profesor especificado por su DNI.
+SQL> REM 17;
+SQL> CREATE VIEW VISTA2 AS
+  2  SELECT PD.DNI,
+  3    V1.A,
+  4    V1.T,
+  5    V1.CUR,
+  6    V1.CAR
+  7  FROM PLAN_DOCENTE PD
+  8    JOIN VISTA1 V1 ON PD.CAs = V1.CAS
+  9  WHERE PD.DNI = '1010';
+
+View created.
+
+SQL> -- 18. Listar todas las t-uplas de la vista ‘VISTA2’.
+SQL> REM 18;
+SQL> SELECT *
+  2  FROM VISTA2;
+
+       DNI A                                                  T           CUR        CAR                                                                                                                
+---------- -------------------------------------------------- ---- ---------- ----------                                                                                                                
+      1010 INTELIGENCIA ARTIFICIAL                            GII           3          4                                                                                                                
+      1010 GESTION DE RIESGOS                                 GII           3          4                                                                                                                
+      1010 GESTION DE RIESGOS                                 GII           3          4                                                                                                                
+
+SQL> -- 19. Modifica el campo A de alguna t-upla específica de ‘VISTA2’. Interpreta el resultado.
+SQL> REM 19;
+SQL> UPDATE VISTA2
+  2  SET A = 'MODIFICADO'
+  3  WHERE A = 'ESTADISTICA';
+SET A = 'MODIFICADO'
+    *
+ERROR at line 2:
+ORA-01779: cannot modify a column which maps to a non key-preserved table 
+
+
+SQL> -- 20. Obtener el esquema de la vista ‘VISTA2’.
+SQL> REM 20;
+SQL> SELECT COLUMN_NAME,
+  2    DATA_TYPE
+  3  FROM USER_TAB_COLUMNS
+  4  WHERE TABLE_NAME = 'VISTA2';
+
+COLUMN_NAME                                                                                                                                                                                             
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DATA_TYPE                                                                                                                                                                                               
+--------------------------------------------------------------------------------------------------------------------------------                                                                        
+DNI                                                                                                                                                                                                     
+NUMBER                                                                                                                                                                                                  
+                                                                                                                                                                                                        
+A                                                                                                                                                                                                       
+VARCHAR2                                                                                                                                                                                                
+                                                                                                                                                                                                        
+T                                                                                                                                                                                                       
+CHAR                                                                                                                                                                                                    
+                                                                                                                                                                                                        
+CUR                                                                                                                                                                                                     
+NUMBER                                                                                                                                                                                                  
+                                                                                                                                                                                                        
+CAR                                                                                                                                                                                                     
+NUMBER                                                                                                                                                                                                  
+                                                                                                                                                                                                        
+
+SQL> -- 21. Eliminar la vista ‘VISTA1’.
+SQL> REM 21;
+SQL> DROP VIEW VISTA1;
+
+View dropped.
+
+SQL> -- 22. Listar todas las t-uplas de la vista ‘VISTA2’.
+SQL> REM 22;
+SQL> SELECT *
+  2  FROM VISTA2;
+FROM VISTA2
+     *
+ERROR at line 2:
+ORA-04063: view "ALU0101394503.VISTA2" has errors 
+
+
+SQL> -- 23. Deshacer los cambios. ¿Se ha recuperado la vista VISTA1? ¿A qué crees que se debe?
+SQL> REM 23;
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL> 
+SQL> select * from VISTA1;
+select * from VISTA1
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> -- 24. Crear un índice, llamado ‘INDICE1’, sobre el atributo P de la tabla ‘PROFESOR’.
+SQL> REM 24;
+SQL> CREATE INDEX INDICE1 ON PROFESOR(P);
+
+Index created.
+
+SQL> -- Listar los DNI de los PROFESOR con nombre ‘JUAN’.
+SQL> SELECT DNI
+  2  FROM PROFESOR
+  3  WHERE P = 'JUAN';
+
+       DNI                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+      1111                                                                                                                                                                                              
+
+SQL> -- 25. Eliminar el índice ‘INDICE1’.
+SQL> REM 25;
+SQL> DROP INDEX INDICE1;
+
+Index dropped.
+
+SQL> -- 26. Crear un índice, llamado ‘INDICE2’, sobre el atributo CAR de la vista ‘VISTA1’. ¿Qué
+SQL> -- interpretas?
+SQL> REM 26;
+SQL> CREATE INDEX INDICE2 ON VISTA1(CAR);
+CREATE INDEX INDICE2 ON VISTA1(CAR)
+                        *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> spool off
